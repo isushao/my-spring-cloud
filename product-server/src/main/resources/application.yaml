@@ -1,0 +1,25 @@
+server:
+  port: 8088
+spring:
+  application:
+    name: product-server
+  batch:
+    initialize-schema: always
+  cloud:
+    consul:
+      discovery:
+        instance-id: ${spring.application.name}
+        ip-address: ${spring.cloud.client.ip-address}
+        port: ${server.port}
+        prefer-ip-address: true
+        register: true
+        service-name: ${spring.application.name}
+      host: 127.0.0.1
+      port: 8500
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: 123456
+    url: jdbc:mysql://localhost:53306/my
+    username: root
+  jpa:
+    database: mysql

@@ -1,0 +1,29 @@
+server:
+  port: 8099
+spring:
+  application:
+    name: order-server
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8055/.well-known/jwks.json
+  cloud:
+    consul:
+      discovery:
+        instance-id: ${spring.application.name}
+        ip-address: ${spring.cloud.client.ip-address}
+        port: ${server.port}
+        prefer-ip-address: true
+        register: true
+        service-name: ${spring.application.name}
+      host: 127.0.0.1
+      port: 8500
+    sentinel:
+      transport:
+        dashboard: localhost:8077
+feign:
+#  hystrix:
+#    enabled: true
+  sentinel:
+    enabled: true

@@ -1,0 +1,48 @@
+server:
+  port: 8066
+
+spring:
+  application:
+    name: api-gateway-server
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # 获取JWT验签公钥请求路径
+          jwk-set-uri: /auth-security-server/.well-known/jwks.json
+#配置spring cloud gateway router
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true #开启根据微服务名称自动转发
+          lower-case-service-id: true # lower spring cloud server name
+      httpclient: #全局超时时间
+        connect-timeout: 1000
+        response-timeout: 5s
+#      routes:
+#      #配置路由： 路由id、路由到微服务uri、断言（条件）
+#      - id: product-server
+#        # lb:// 根据微服务名称从注册中心拉取服务地址
+#        uri: lb://product-server
+#        predicates:
+#        - Path=/product-server/**
+#        filters: #配置路由过滤器
+#        - RewritePath=/product-server/(?<segment>.*),/$\{segment} #路径重写
+#      - id: order-server
+#        uri: lb://order-server
+#        predicates:
+#        - Path=/order-server/**
+#        filters:
+#        - RewritePath=/order-server/(?<segment>.*),/$\{segment}
+      #配置自动的根据微服务名称进行路由转发
+    consul:
+      discovery:
+        instance-id: ${spring.application.name}
+        ip-address: ${spring.cloud.client.ip-address}
+        port: ${server.port}
+        prefer-ip-address: true
+        register: true
+        service-name: ${spring.application.name}
+      host: 127.0.0.1
+      port: 8500
