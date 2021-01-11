@@ -4,12 +4,14 @@ server:
 spring:
   application:
     name: api-gateway-server
+  main:
+    allow-bean-definition-overriding: true
   security:
     oauth2:
       resourceserver:
         jwt:
           # 获取JWT验签公钥请求路径
-          jwk-set-uri: /auth-security-server/.well-known/jwks.json
+          jwk-set-uri: http://localhost:8055/.well-known/jwks.json
 #配置spring cloud gateway router
   cloud:
     gateway:
