@@ -12,6 +12,9 @@ import java.util.Map;
  * to extend the default. By default, it uses the attribute {@code user_name}, though it would be
  * better to adhere to the {@code sub} property defined in the
  * <a target="_blank" href="https://tools.ietf.org/html/rfc7519">JWT Specification</a>.
+ *
+ * 自定义jwt内容
+ *    添加sub：用户名  authorities：用户权限
  */
 class SubjectAttributeUserTokenConverter extends DefaultUserAuthenticationConverter {
     @Override
