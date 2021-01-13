@@ -16,7 +16,7 @@ import java.util.Map;
  * 自定义jwt内容
  *    添加sub：用户名  authorities：用户权限
  */
-class SubjectAttributeUserTokenConverter extends DefaultUserAuthenticationConverter {
+public class UserTokenConverter extends DefaultUserAuthenticationConverter {
     @Override
     public Map<String, ?> convertUserAuthentication(Authentication authentication) {
         Map<String, Object> response = new LinkedHashMap<>();

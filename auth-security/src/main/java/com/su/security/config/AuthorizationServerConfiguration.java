@@ -85,7 +85,9 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
      */
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) {
-        security.allowFormAuthenticationForClients();
+        security.tokenKeyAccess("permitAll()")
+                .checkTokenAccess("isAuthenticated()")
+                .allowFormAuthenticationForClients();
     }
 
 	@Bean
@@ -107,7 +109,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         converter.setKeyPair(keyPair());
 
         DefaultAccessTokenConverter accessTokenConverter = new DefaultAccessTokenConverter();
-        accessTokenConverter.setUserTokenConverter(new SubjectAttributeUserTokenConverter());
+        accessTokenConverter.setUserTokenConverter(new UserTokenConverter());
         converter.setAccessTokenConverter(accessTokenConverter);
 
         return converter;
