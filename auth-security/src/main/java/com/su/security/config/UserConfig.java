@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -29,9 +28,10 @@ public class UserConfig extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 				.mvcMatchers("/.well-known/jwks.json").permitAll()
 				.mvcMatchers("/actuator/**").permitAll()
+				.mvcMatchers("/user/me").permitAll()
 				.anyRequest().authenticated()
 				.and()
-			.httpBasic()
+			.formLogin()
 				.and()
 			.csrf().ignoringRequestMatchers((request) -> "/introspect".equals(request.getRequestURI()));
 	}
