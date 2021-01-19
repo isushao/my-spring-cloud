@@ -20,6 +20,10 @@ spring:
             redirect-uri: http://localhost:8082/login/oauth2/code/
             client-authentication-method: basic
             authorization-grant-type: authorization_code
+          okta:
+            client-id: 0oa37jhtoP8oqtc8V5d6
+            client-secret: OBg5rojjJD5qFNP56MMjMjAMOaEy9BWIQ3ovDFwU
+            redirect-uri: http://localhost:8082/login/oauth2/code/okta
         provider:
           custom-provider:
             token-uri: http://localhost:8055/oauth/token
@@ -27,3 +31,8 @@ spring:
             user-info-uri: http://localhost:8055/user/me
             user-name-attribute: name
             jwk-set-uri: http://localhost:8055/.well-known/jwks.json
+          okta:
+            authorization-uri: https://dev-3190086.okta.com/oauth2/v1/authorize
+            token-uri: https://dev-3190086.okta.com/oauth2/v1/token
+            user-info-uri: https://dev-3190086.okta.com/oauth2/v1/userinfo
+            jwk-set-uri: https://dev-3190086.okta.com/oauth2/v1/keys
