@@ -22,5 +22,8 @@ spring:
     password: 123456
     url: jdbc:mysql://localhost:53306/my
     username: root
+    schema:
+      - classpath:schema_mysql.sql
+    initialization-mode: always
   jpa:
     database: mysql
