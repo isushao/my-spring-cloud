@@ -29,7 +29,7 @@ spring:
             token-uri: http://localhost:8055/oauth/token
             authorization-uri: http://localhost:8055/oauth/authorize
             user-info-uri: http://localhost:8055/user/me
-            user-name-attribute: name
+            user-name-attribute: sub
             jwk-set-uri: http://localhost:8055/.well-known/jwks.json
           okta:
             authorization-uri: https://dev-3190086.okta.com/oauth2/v1/authorize

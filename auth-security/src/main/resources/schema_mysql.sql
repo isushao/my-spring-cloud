@@ -1,3 +1,15 @@
+
+create table users
+(
+    username varchar(50)  not null
+        primary key,
+    password varchar(500) not null,
+    enabled  tinyint(1)   not null
+);
+
+INSERT INTO users (username, password, enabled) VALUES ('admin', '{bcrypt}$2a$10$awKax9CGDeRlQ/zZtg3X5uUkT2M9r45IMV1LHzxnADQ9IcgUUzrOS', 1);
+INSERT INTO users (username, password, enabled) VALUES ('user', '{bcrypt}$2a$10$awKax9CGDeRlQ/zZtg3X5uUkT2M9r45IMV1LHzxnADQ9IcgUUzrOS', 1);
+
 create table authorities
 (
     username  varchar(50) not null,
@@ -12,16 +24,6 @@ INSERT INTO authorities (username, authority) VALUES ('admin', 'ROLE_ADMIN');
 INSERT INTO authorities (username, authority) VALUES ('admin', 'ROLE_USER');
 INSERT INTO authorities (username, authority) VALUES ('user', 'ROLE_USER');
 
-create table users
-(
-    username varchar(50)  not null
-        primary key,
-    password varchar(500) not null,
-    enabled  tinyint(1)   not null
-);
-
-INSERT INTO users (username, password, enabled) VALUES ('admin', '{bcrypt}$2a$10$awKax9CGDeRlQ/zZtg3X5uUkT2M9r45IMV1LHzxnADQ9IcgUUzrOS', 1);
-INSERT INTO users (username, password, enabled) VALUES ('user', '{bcrypt}$2a$10$awKax9CGDeRlQ/zZtg3X5uUkT2M9r45IMV1LHzxnADQ9IcgUUzrOS', 1);
 
 create table oauth_client_details
 (
