@@ -38,13 +38,16 @@ spring:
 #        filters:
 #        - RewritePath=/order-server/(?<segment>.*),/$\{segment}
       #配置自动的根据微服务名称进行路由转发
-    consul:
+#    consul:
+#      discovery:
+#        instance-id: ${spring.application.name}
+#        ip-address: ${spring.cloud.client.ip-address}
+#        port: ${server.port}
+#        prefer-ip-address: true
+#        register: true
+#        service-name: ${spring.application.name}
+#      host: 127.0.0.1
+#      port: 8500
+    nacos:
       discovery:
-        instance-id: ${spring.application.name}
-        ip-address: ${spring.cloud.client.ip-address}
-        port: ${server.port}
-        prefer-ip-address: true
-        register: true
-        service-name: ${spring.application.name}
-      host: 127.0.0.1
-      port: 8500
+        server-addr: 127.0.0.1:8848

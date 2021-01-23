@@ -1,6 +1,5 @@
 package com.su.common.result;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -14,7 +13,6 @@ public class Result<T> implements Serializable {
 
     private String msg;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private long total;
 
     public static <T> Result<T> success() {
