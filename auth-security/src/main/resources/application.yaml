@@ -24,6 +24,6 @@ spring:
     username: root
     schema:
       - classpath:schema_mysql.sql
-    initialization-mode: always
+    initialization-mode: never
   jpa:
     database: mysql

@@ -4,6 +4,7 @@ package com.su.security.config;
 import com.su.security.service.LocalUserDetailsService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,20 +35,19 @@ import java.util.Collections;
 @Configuration
 public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
-    PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-    DataSource dataSource;
+    @Autowired
+    private DataSource dataSource;
 
-    LocalUserDetailsService userDetailsService;
+    @Autowired
+    private LocalUserDetailsService userDetailsService;
 
+    @Autowired
+    @Qualifier("authenticationManagerBean")
+    private AuthenticationManager authenticationManager;
 
-    AuthenticationManager authenticationManager;
-
-    AuthorizationServerConfiguration(PasswordEncoder passwordEncoder, DataSource dataSource, LocalUserDetailsService userDetailsService){
-        this.passwordEncoder = passwordEncoder;
-        this.dataSource = dataSource;
-        this.userDetailsService = userDetailsService;
-    }
     /**
      * 客户端详情配置
      *
@@ -72,6 +72,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                 .authenticationManager(authenticationManager)
                 .authorizationCodeServices(authorizationCodeServices())
                 .tokenStore(tokenStore())
+                .tokenServices(tokenServices())
                 .userDetailsService(userDetailsService)
                 .allowedTokenEndpointRequestMethods(HttpMethod.POST)
 				.accessTokenConverter(accessTokenConverter());
@@ -86,7 +87,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) {
         security.tokenKeyAccess("permitAll()")
-                .checkTokenAccess("isAuthenticated()")
+                .checkTokenAccess("permitAll()")
                 .allowFormAuthenticationForClients();
     }
 

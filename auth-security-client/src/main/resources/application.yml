@@ -28,7 +28,7 @@ spring:
           custom-provider:
             token-uri: http://localhost:8055/oauth/token
             authorization-uri: http://localhost:8055/oauth/authorize
-            user-info-uri: http://localhost:8055/user/me
+            user-info-uri: http://localhost:8055/introspect
             user-name-attribute: sub
             jwk-set-uri: http://localhost:8055/.well-known/jwks.json
           okta:
