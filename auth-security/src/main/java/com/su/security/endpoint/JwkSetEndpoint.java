@@ -24,7 +24,7 @@ class JwkSetEndpoint {
         this.keyPair = keyPair;
     }
 
-    @GetMapping("/.well-known/jwks.json")
+    @GetMapping("/oauth/keys")
     @ResponseBody
     public Map<String, Object> getKey() {
         RSAPublicKey publicKey = (RSAPublicKey) this.keyPair.getPublic();

@@ -27,8 +27,8 @@ public class UserConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-				.mvcMatchers("/.well-known/jwks.json").permitAll()
 				.mvcMatchers("/actuator/**").permitAll()
+				.mvcMatchers("/oauth/**").permitAll()
 				.anyRequest().authenticated()
 				.and()
 			.formLogin()
