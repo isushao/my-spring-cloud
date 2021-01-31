@@ -7,7 +7,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: http://localhost:8055/.well-known/jwks.json
+          jwk-set-uri: http://localhost:8055/oauth/keys
   cloud:
     consul:
       discovery:

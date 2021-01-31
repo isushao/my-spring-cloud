@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -25,15 +24,15 @@ public class UserConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http
-			.authorizeRequests()
-				.mvcMatchers("/actuator/**").permitAll()
-				.mvcMatchers("/oauth/**").permitAll()
+		http.requestMatchers()
+				.antMatchers("/login", "/oauth/**", "/actuator/**")
+				.and()
+				.authorizeRequests()
 				.anyRequest().authenticated()
 				.and()
-			.formLogin()
+				.formLogin().permitAll()
 				.and()
-			.csrf().ignoringRequestMatchers((request) -> "/introspect".equals(request.getRequestURI()));
+				.csrf().ignoringRequestMatchers((request) -> "/introspect".equals(request.getRequestURI()));
 	}
 
 	@Bean

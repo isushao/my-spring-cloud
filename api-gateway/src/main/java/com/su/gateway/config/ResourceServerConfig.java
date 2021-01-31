@@ -22,7 +22,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 /**
  * 资源服务器配置
  */
-@EnableWebFluxSecurity
+//@EnableWebFluxSecurity
 public class ResourceServerConfig {
     @Value("${spring.security.oauth2.resourceserver.jwt.jwk-set-uri}") String jwkSetUri;
 

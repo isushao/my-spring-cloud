@@ -21,6 +21,7 @@ public class UserTokenConverter extends DefaultUserAuthenticationConverter {
     public Map<String, ?> convertUserAuthentication(Authentication authentication) {
         Map<String, Object> response = new LinkedHashMap<>();
         response.put("sub", authentication.getName());
+        response.put("user_name",authentication.getName());
         if (authentication.getAuthorities() != null && !authentication.getAuthorities().isEmpty()) {
             response.put(AUTHORITIES, AuthorityUtils.authorityListToSet(authentication.getAuthorities()));
         }

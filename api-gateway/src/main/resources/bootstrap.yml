@@ -2,13 +2,70 @@ server:
   port: 8066
 
 spring:
-  main:
-    allow-bean-definition-overriding: true
   application:
     name: api-gateway-server
+  main:
+    allow-bean-definition-overriding: true
+  thymeleaf:
+    cache: false
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # 获取JWT验签公钥请求路径
+          jwk-set-uri: http://localhost:8055/oauth/keys
+      client:
+        registration:
+          custom-client:
+            client-id: R2dpxQ3vPrtfgF72
+            client-secret: fDw7Mpkk5czHNuSRtmhGmAGL42CaxQB9
+            scope: user_info
+            provider: custom-provider
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            client-authentication-method: basic
+            authorization-grant-type: authorization_code
+        provider:
+          custom-provider:
+            token-uri: http://localhost:8055/oauth/token
+            authorization-uri: http://localhost:8055/oauth/authorize
+            user-info-uri: http://localhost:8055/introspect?token=
+            user-name-attribute: name
+            jwk-set-uri: http://localhost:8055/oauth/keys
+  #配置spring cloud gateway router
   cloud:
-    nacos:
-      config:
-        server-addr: 127.0.0.1:8848
-        group: DEFAULT_GROUP
-        file-extension: yaml
+    gateway:
+      discovery:
+        locator:
+          enabled: true #开启根据微服务名称自动转发
+          lower-case-service-id: true # lower spring cloud server name
+          filters:
+          - TokenRelay=
+      httpclient: #全局超时时间
+        connect-timeout: 1000
+        response-timeout: 5s
+    consul:
+      discovery:
+        instance-id: ${spring.application.name}
+        ip-address: ${spring.cloud.client.ip-address}
+        port: ${server.port}
+        prefer-ip-address: true
+        register: true
+        service-name: ${spring.application.name}
+      host: 127.0.0.1
+      port: 8500
+      #      routes:
+      #      #配置路由： 路由id、路由到微服务uri、断言（条件）
+      #      - id: product-server
+      #        # lb:// 根据微服务名称从注册中心拉取服务地址
+      #        uri: lb://product-server
+      #        predicates:
+      #        - Path=/product-server/**
+      #        filters: #配置路由过滤器
+      #        - RewritePath=/product-server/(?<segment>.*),/$\{segment} #路径重写
+      #      - id: order-server
+      #        uri: lb://order-server
+      #        predicates:
+      #        - Path=/order-server/**
+      #        filters:
+      #        - RewritePath=/order-server/(?<segment>.*),/$\{segment}
+      #配置自动的根据微服务名称进行路由转发
