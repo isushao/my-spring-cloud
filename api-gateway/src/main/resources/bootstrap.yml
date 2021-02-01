@@ -28,8 +28,8 @@ spring:
           custom-provider:
             token-uri: http://localhost:8055/oauth/token
             authorization-uri: http://localhost:8055/oauth/authorize
-            user-info-uri: http://localhost:8055/introspect?token=
-            user-name-attribute: name
+            user-info-uri: http://localhost:8055/introspect
+            user-name-attribute: sub
             jwk-set-uri: http://localhost:8055/oauth/keys
   #配置spring cloud gateway router
   cloud:

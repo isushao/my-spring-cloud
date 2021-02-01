@@ -1,14 +1,14 @@
 package com.su.security.endpoint;
 
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.endpoint.FrameworkEndpoint;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,7 +28,8 @@ class IntrospectEndpoint {
 
     @GetMapping("/introspect")
     @ResponseBody
-    public Map<String, Object> introspect(@RequestParam("token") String token) {
+    public Object introspect(HttpServletRequest request) {
+        String token = request.getHeader("Authorization").replace("Bearer ", Strings.EMPTY);
         OAuth2AccessToken accessToken = this.tokenStore.readAccessToken(token);
         Map<String, Object> attributes = new HashMap<>();
         if (accessToken == null || accessToken.isExpired()) {
