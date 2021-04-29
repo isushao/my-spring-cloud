@@ -2,6 +2,7 @@ package com.su.cloud.controller;
 
 import com.su.cloud.entity.Product;
 import com.su.cloud.feign.ProductFeignClient;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("api/v1/order")
+@Tag(name = "OrderController")
 public class OrderController {
 
     @Qualifier("com.su.cloud.feign.ProductFeignClient")

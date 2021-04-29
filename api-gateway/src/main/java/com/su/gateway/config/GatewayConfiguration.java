@@ -127,7 +127,7 @@ public class GatewayConfiguration {
     @PostConstruct
     public void initBlockHandler(){
         BlockRequestHandler blockRequestHandler = (serverWebExchange, throwable) -> {
-            Map<String,Object> map = new HashMap();
+            Map<String,Object> map = new HashMap<>();
             map.put("message","限流了");
             map.put("code",444);
 
